@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="802c1f09-dfb3-4dcc-a38c-89a5b25f17da" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="bf278301-aa0e-4210-8ac1-dc56c1266362" >
+		<http:request-connection host="${globalhttphost}" port="${globalhttpport}" protocol="HTTPS"/>
+	</http:request-config>
+	<flow name="otelpoc-backendFlow" doc:id="fa678a91-c5a4-4937-aa70-19095e4c4eff" >
+		<http:listener doc:name="/otel" doc:id="6dd11b61-6b7f-48dc-9503-bdc5570c4690" config-ref="HTTP_Listener_config" path="/otel"/>
+		<logger level="INFO" doc:name="Log  Received Endpoint" doc:id="b023b513-a426-461a-afbb-207551565391" message='#["Received endpoint is " ++  attributes.rawRequestUri]'/>
+		<http:request method="GET" doc:name="Request" doc:id="dc502cf9-7660-4a00-81dc-939737add572" config-ref="HTTP_Request_configuration" path="/objects"/>
+		<logger level="INFO" doc:name="Log Response" doc:id="7b11283f-6610-4a6f-bc83-32ba5ff1d3e2" message="#[payload]"/>
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="0206c562-8eb2-42cd-b889-fc2499963707" >
+				<logger level="ERROR" doc:name="Error On Failure" doc:id="2bd6f040-2522-4b58-a3ed-50427ced0133" message="#[error.description]"/>
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+</mule>

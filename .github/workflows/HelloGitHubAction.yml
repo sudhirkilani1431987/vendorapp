@@ -1,0 +1,27 @@
+on:
+    workflow_dispatch: 
+        inputs:
+            myInput:
+                type: string
+                description: "this string will be printed"
+                required: true
+                default: "First GitHubAction"
+
+
+jobs:
+    HelloGitHubJob:
+        runs-on: uubuntu-18.04
+        steps:
+            - name: printHello
+              run: |
+                echo "input works in double quote only  ${{github.event.inputs.myInput}} printed"
+        
+               
+            
+                        
+                    
+            
+            
+    
+
+  

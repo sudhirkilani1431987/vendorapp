@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="2c10ec91-26e2-46c9-9bde-e44ab27d9677" file="backend.properties" />
+	<global-property doc:name="Global Property" doc:id="412924ae-3fa4-4e57-832e-8866deaf5e66" name="globalhttphost" value="api.restful-api.dev"/>
+	<global-property doc:name="Global Property" doc:id="ebf9f78c-6daf-4498-81f6-b9993fc3ddf2" name="globalhttpport" value="443"/>
+</mule>
